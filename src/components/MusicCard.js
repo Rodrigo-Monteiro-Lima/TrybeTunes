@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { addSong } from '../services/favoriteSongsAPI';
+import { getFavoriteSongs, addSong } from '../services/favoriteSongsAPI';
 import Loading from './Loading';
 
 class MusicCard extends Component {
@@ -9,8 +9,32 @@ class MusicCard extends Component {
     this.state = {
       favorite: false,
       isLoading: false,
+      favoritedSongs: [],
     };
   }
+
+  async componentDidMount() {
+    await this.onMount();
+    this.getSaved();
+  }
+
+  onMount = async () => {
+    const favorited = await getFavoriteSongs();
+    this.setState({
+      favoritedSongs: favorited,
+      isLoading: true,
+    });
+  };
+
+  getSaved = () => {
+    const { favoritedSongs } = this.state;
+    const { track } = this.props;
+
+    this.setState({
+      favorite: favoritedSongs.some((song) => track.trackId === song.trackId),
+      isLoading: false,
+    });
+  };
 
   saveFavorite = async () => {
     const { track } = this.props;
