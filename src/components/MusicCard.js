@@ -9,22 +9,12 @@ class MusicCard extends Component {
     this.state = {
       favorite: false,
       isLoading: false,
-      favoritedSongs: [],
     };
   }
 
   componentDidMount() {
     this.getSaved();
   }
-
-  // onMount = async () => {
-  //   // const favorited =
-  //   // console.log(favorited);
-  //   this.setState({
-  //     favoritedSongs: await getFavoriteSongs(),
-  //     isLoading: true,
-  //   });
-  // };
 
   getSaved = async () => {
     const { track } = this.props;
