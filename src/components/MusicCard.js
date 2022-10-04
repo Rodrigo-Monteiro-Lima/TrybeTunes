@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { getFavoriteSongs, addSong } from '../services/favoriteSongsAPI';
+import { removeSong, addSong, getFavoriteSongs } from '../services/favoriteSongsAPI';
 import Loading from './Loading';
 
 class MusicCard extends Component {
@@ -13,26 +13,26 @@ class MusicCard extends Component {
     };
   }
 
-  async componentDidMount() {
-    await this.onMount();
+  componentDidMount() {
     this.getSaved();
   }
 
-  onMount = async () => {
+  // onMount = async () => {
+  //   // const favorited =
+  //   // console.log(favorited);
+  //   this.setState({
+  //     favoritedSongs: await getFavoriteSongs(),
+  //     isLoading: true,
+  //   });
+  // };
+
+  getSaved = async () => {
+    const { track } = this.props;
+    this.setState({ isLoading: true });
     const favorited = await getFavoriteSongs();
     this.setState({
-      favoritedSongs: favorited,
-      isLoading: true,
-    });
-  };
-
-  getSaved = () => {
-    const { favoritedSongs } = this.state;
-    const { track } = this.props;
-
-    this.setState({
-      favorite: favoritedSongs.some((song) => track.trackId === song.trackId),
       isLoading: false,
+      favorite: favorited.some((song) => track.trackId === song.trackId),
     });
   };
 
@@ -47,9 +47,16 @@ class MusicCard extends Component {
   };
 
   handleChange = async ({ target }) => {
+    const { track } = this.props;
+    const { favorite } = this.state;
     this.setState({
       favorite: target.checked,
     }, this.saveFavorite);
+    if (favorite) {
+      this.setState({ isLoading: true });
+      await removeSong(track);
+      this.setState({ isLoading: false });
+    }
   };
 
   render() {

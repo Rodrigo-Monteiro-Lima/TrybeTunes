@@ -7,13 +7,11 @@ import Favorites from './pages/Favorites';
 import Profile from './pages/Profile';
 import ProfileEdit from './pages/ProfileEdit';
 import NotFound from './pages/NotFound';
-import Header from './components/Header';
 
 class App extends React.Component {
   render() {
     return (
       <div>
-        <Header />
         <Switch>
           <Route exact path="/" component={ Login } />
           <Route path="/search" component={ Search } />

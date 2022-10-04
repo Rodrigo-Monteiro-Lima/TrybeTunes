@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import Header from '../components/Header';
 import Loading from '../components/Loading';
-import AlbumSearch from '../components/AlbumSearch';
 import searchAlbumsAPI from '../services/searchAlbumsAPI';
+import AlbumSearch from '../components/AlbumSearch';
 
 class Search extends Component {
   constructor() {
@@ -31,7 +32,7 @@ class Search extends Component {
     const result = await searchAlbumsAPI(artist);
     this.setState(() => ({
       isLoading: false,
-      albums: result.length !== 0 ? result : ['Nenhum álbum foi encontrado'],
+      albums: result.length !== 0 ? [...result] : ['Nenhum álbum foi encontrado'],
     }));
   };
 
@@ -40,6 +41,7 @@ class Search extends Component {
     const minChar = 2;
     return (
       <div data-testid="page-search">
+        <Header />
         <form>
           <label htmlFor="artist">
             <input

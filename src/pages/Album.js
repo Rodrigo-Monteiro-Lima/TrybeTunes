@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Header from '../components/Header';
 import getMusics from '../services/musicsAPI';
 import MusicCard from '../components/MusicCard';
 import Loading from '../components/Loading';
@@ -36,6 +37,7 @@ class Album extends Component {
     const tracks = musics.filter((music) => music.trackName);
     return (
       <div data-testid="page-album">
+        <Header />
         <div>
           <h4 data-testid="album-name">{collectionName}</h4>
           <img src={ artworkUrl100 } alt={ collectionName } />
