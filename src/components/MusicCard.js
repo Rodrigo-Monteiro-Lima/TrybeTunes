@@ -45,7 +45,8 @@ class MusicCard extends Component {
     if (favorite) {
       this.setState({ isLoading: true });
       await removeSong(track);
-      this.setState({ isLoading: false });
+      this.setState({
+        isLoading: false });
     }
   };
 
