@@ -17,8 +17,8 @@ class ProfileEdit extends Component {
     };
   }
 
-  async componentDidMount() {
-    await this.fetchUser();
+  componentDidMount() {
+    this.fetchUser();
   }
 
   fetchUser = async () => {
@@ -28,14 +28,14 @@ class ProfileEdit extends Component {
       email: user.email,
       image: user.image,
       description: user.description,
-    });
+    }, this.buttonValidation);
   };
 
   handleChange = ({ target }) => {
     const { name, value } = target;
     this.setState({
       [name]: value,
-    }, this.buttonValidation());
+    }, this.buttonValidation);
   };
 
   handleClick = async () => {
@@ -51,13 +51,12 @@ class ProfileEdit extends Component {
     await updateUser(user);
     this.setState({ isLoading: false });
     history.push('/profile');
-    // return <Redirect to="/profile" />;
   };
 
   buttonValidation = () => {
     const { name, email, image, description } = this.state;
     const emptyTest = name && description && image && email !== '';
-    const emailTest = email.match(/^\S+@\S+$/i);
+    const emailTest = email.match(/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/i);
     if (emailTest && emptyTest) {
       this.setState({
         isSaveButtonDisabled: false,
@@ -78,6 +77,7 @@ class ProfileEdit extends Component {
         <Header />
         <form>
           <label htmlFor="image">
+            Imagem
             <input
               type="text"
               data-testid="edit-input-image"

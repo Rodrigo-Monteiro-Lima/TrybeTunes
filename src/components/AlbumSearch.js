@@ -5,7 +5,8 @@ import { Link } from 'react-router-dom';
 class AlbumSearch extends Component {
   render() {
     const { artist, albums } = this.props;
-    if (albums[0] === 'Nenhum álbum foi encontrado') {
+    const search = albums[0];
+    if (search === 'Nenhum álbum foi encontrado') {
       return <div>Nenhum álbum foi encontrado</div>;
     }
     return (
