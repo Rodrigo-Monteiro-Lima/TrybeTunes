@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Header from '../components/Header';
-import { getFavoriteSongs, removeSong } from '../services/favoriteSongsAPI';
+import { getFavoriteSongs } from '../services/favoriteSongsAPI';
 import Loading from '../components/Loading';
 import MusicCard from '../components/MusicCard';
 

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Redirect } from 'react-router-dom';
 import Header from '../components/Header';
 import { getUser, updateUser } from '../services/userAPI';
 import Loading from '../components/Loading';
@@ -51,8 +50,8 @@ class ProfileEdit extends Component {
     };
     await updateUser(user);
     this.setState({ isLoading: false });
-    // await history.push('/profile');
-    return <Redirect to="/profile" />;
+    history.push('/profile');
+    // return <Redirect to="/profile" />;
   };
 
   buttonValidation = () => {

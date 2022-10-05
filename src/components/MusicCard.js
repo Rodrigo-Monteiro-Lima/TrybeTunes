@@ -47,6 +47,7 @@ class MusicCard extends Component {
       await removeSong(track);
       this.setState({
         isLoading: false });
+      this.getSaved();
     }
   };
 
